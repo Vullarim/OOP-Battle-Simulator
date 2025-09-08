@@ -18,10 +18,11 @@ class Hero:
         self.name = name
         self.health = 500
         self.attack_power = random.randint(40,67)
+        self.isStunned = False
     
 
     def strike(self):
-        return random.randint(20, self.attack_power)
+        return random.randint(22, self.attack_power)
     
     def receive_damage(self, damage):
         self.health -= damage
