@@ -13,6 +13,7 @@ class Enemy:
         self.name = name
         self.health = 100
         self.attack_power = random.randint(5, 15)
+        self.isStunned = False
 
     def attack(self):
         return random.randint(1, self.attack_power)

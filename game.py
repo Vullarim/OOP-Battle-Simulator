@@ -47,23 +47,28 @@ def main():
         print(f"\nThe hero has defeated all the goblins! ༼ ᕤ◕◡◕ ༽ᕤ")
     else:
         print(f"\nThe hero has been defeated. Game Over. (｡•́︿•̀｡)")
-    
+
+    print("\nBoss Time!")
     while hero.is_alive() and (boss.is_alive()):
         print("\nNew Round!")
         rounds += 1
         # Hero's turn to attack
-        damage = hero.strike()
-        print(f"Hero attacks {boss.name} for {damage} damage!")
-        boss.take_damage(damage)
-        total_damage += damage
+        if not(hero.isStunned):
+            damage = hero.strike()
+            print(f"Hero attacks {boss.name} for {damage} damage!")
+            boss.take_damage(damage)
+            total_damage += damage
+        else:
+            print(f"{hero.name} could not attack because they are stunned!")
+            hero.isStunned = False
 
-        # Check if the target boss was defeated
+        # Check if the boss was defeated
         if not boss.is_alive():
             print(f"{boss.name} has been defeated!")
 
         # boss turn to attack
         if boss.is_alive():
-            damage = boss.attack()
+            damage = boss.attack(hero)
             print(f"{boss.name} attacks hero for {damage} damage!")
             hero.receive_damage(damage)
 
@@ -74,7 +79,7 @@ def main():
         print(f"\nThe hero has been defeated. Game Over. (｡•́︿•̀｡)")
 
     # Final tally of goblins defeated
-    print("Battle Summery:")
+    print("\nBattle Summery:")
     print(f"\nTotal goblins defeated: {defeated_goblins} / {len(goblins)}")
     print(f"Total Damage: {total_damage}")
     print(f"Rounds Survived: {rounds}")
